@@ -27,10 +27,10 @@ class Model {
 
         // Initialize the model with a few balls
         int i = 0;
-        balls = new Ball[3];
+        balls = new Ball[2];
         balls[i++] = new Ball(width / 3, height * 0.6, 1.0, 0, 0.4, Color.RED);
         balls[i++] = new Ball(2 * width / 3, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
-        balls[i++] = new Ball(width / 4, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        // balls[i++] = new Ball(width / 4, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
     }
 
     void step(double deltaT) {
@@ -92,8 +92,8 @@ class Model {
                         // } else if (y1 < y2) {
                         //   collisionAngle += 3*Math.PI/2;
                         // }
-                        // polarT += collisionAngle;
-                        // polarT2 += collisionAngle;
+                        polarT += collisionAngle + Math.PI/2;
+                        polarT2 += collisionAngle + Math.PI/2;
 
                         // polarT += Math.PI / 2;
                         // polarT2 += Math.PI / 2;
@@ -102,8 +102,8 @@ class Model {
 
                         // }
 
-                        polarT = collisionAngle;
-                        polarT2 = collisionAngle + Math.PI;
+                        // polarT = collisionAngle;
+                        // polarT2 = collisionAngle + Math.PI;
 
                         System.out.println("angle: "+collisionAngle);
 
