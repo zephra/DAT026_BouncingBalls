@@ -77,12 +77,16 @@ class Model {
                         double newX = polarToRectX(polarR, polarT);
                         double newY = polarToRectY(polarR, polarT);
 
+
+                        System.out.println("Ball " + i);
+                        System.out.println("Before");
+                        System.out.println("Polar\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
+
                         balls[i].vx = newX;
                         balls[i].vy = newY;
 
-                        System.out.println("Ball " + i);
-                        System.out.println("Rect\tx: " + balls[i].x + "\ty: " + balls[i].y);
-                        System.out.println("Polar\tR: " + rectToPolarR(balls[i].x, balls[i].y) + "\tT: " + rectToPolarT(balls[i].x, balls[i].y));
+                        System.out.println("After");
+                        System.out.println("Polar\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
                         System.out.println();
 
                     }
