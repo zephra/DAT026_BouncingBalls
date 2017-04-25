@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 class Model {
 
-    final double G = 9.82;
+    final double G = 9.82 * 0.01;
     final double DAMPENING = 0.98;
 
     double areaWidth, areaHeight;
@@ -41,9 +41,9 @@ class Model {
         for (int i=0; i<balls.length; i++) {
             Ball b = balls[i];
             if (b == null) break;
-            // gravitation, with size-tweaking
-            b.vy += -G * 0.01;
-            // b.vy += -G * deltaT;
+
+            // gravitation
+            b.vy += -G;
 
             // detect collision with the border
             if (b.x < b.radius && b.vx < 0
@@ -89,7 +89,7 @@ class Model {
             this.vx = vx;
             this.vy = vy;
             this.radius = r;
-            this.mass = r; // TODO: change to equation for volume of sphere times some constant mass
+            this.mass = 4/3 * Math.PI * Math.pow(r, 3); // Volume of a sphere
             this.color = c;
         }
 
