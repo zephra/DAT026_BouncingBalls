@@ -82,15 +82,10 @@ class Model {
                         // polarT += 2 * alfa;
 
 
-                        double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1));
+                        double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1)) + Math.PI;
+
+
                         polarT += collisionAngle;
-                        if (x1 < x2 && y1 < y2) {
-                          collisionAngle += Math.PI;
-                        } else if (x1 < x2) {
-                          collisionAngle += Math.PI/2;
-                        } else if (y1 < y2) {
-                          collisionAngle += 3*Math.PI/2;
-                        }
 
                         double newX = polarToRectX(polarR, polarT);
                         double newY = polarToRectY(polarR, polarT);
