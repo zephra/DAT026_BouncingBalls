@@ -68,8 +68,6 @@ class Model {
                 if (i != j) {
                     double distance = Math.sqrt(Math.pow((balls[i].x - balls[j].x),2) + Math.pow((balls[i].y - balls[j].y),2));
                     if (distance < balls[i].radius + balls[j].radius) {
-                        // balls[i].vx = -balls[i].vx;
-                        // balls[i].vy = -balls[i].vy;
 
                         double polarR = rectToPolarR(balls[i].vx, balls[i].vy);
                         double polarT = rectToPolarT(balls[i].vx, balls[i].vy);
@@ -77,6 +75,7 @@ class Model {
                         double newX = polarToRectX(polarR, polarT);
                         double newY = polarToRectY(polarR, polarT);
 
+                        double collisionAngle;
 
                         System.out.println("Ball " + i);
                         System.out.println("Before\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
