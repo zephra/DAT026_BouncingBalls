@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 class Model {
 
-    final double G = 9.82;
+    final double G = 9.82 * 0.01;
     final double DAMPENING = 0.98;
 
     double areaWidth, areaHeight;
@@ -37,9 +37,9 @@ class Model {
         // TODO this method implements one step of simulation with a step deltaT
         for (Ball b : balls) {
             if (b == null) break;
-            // gravitation, with size-tweaking
-            b.vy += -G * 0.01;
-            // b.vy += -G * deltaT;
+
+            // gravitation
+            b.vy += -G;
 
             // detect collision with the border
             if (b.x < b.radius && b.vx < 0 
