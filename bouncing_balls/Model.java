@@ -71,7 +71,10 @@ class Model {
 
                         double polarR = rectToPolarR(balls[i].vx, balls[i].vy);
                         double polarT = rectToPolarT(balls[i].vx, balls[i].vy);
-                        polarT += Math.PI;
+                        double tangentT = rectToPolarT(balls[i].x - balls[j].x, balls[i].y - balls[j].y);
+                        // polarT += Math.PI;
+                        double alfa = polarT - tangentT;
+                        polarT += 2 * alfa;
                         double newX = polarToRectX(polarR, polarT);
                         double newY = polarToRectY(polarR, polarT);
 
