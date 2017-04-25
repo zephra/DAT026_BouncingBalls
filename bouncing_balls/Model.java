@@ -34,8 +34,8 @@ class Model {
     }
 
     void step(double deltaT) {
-        double[] xCoords = new double[balls.length];
-        double[] yCoords = new double[balls.length];
+        // double[] xCoords = new double[balls.length];
+        // double[] yCoords = new double[balls.length];
 
         // TODO this method implements one step of simulation with a step deltaT
         for (int i=0; i<balls.length; i++) {
@@ -55,8 +55,8 @@ class Model {
                 b.vy *= -DAMPENING;
             }
 
-            xCoords[i] = b.x;
-            yCoords[i] = b.y;
+            // xCoords[i] = b.x;
+            // yCoords[i] = b.y;
 
             // compute new position according to the speed of the ball
             b.x += deltaT * b.vx;
@@ -64,8 +64,8 @@ class Model {
         }
 
         for (int i=0; i<balls.length; i++) {
-            for (int j=0; j<balls.length; j++) {
-                if (i != j) {
+            for (int j=i+1; j<balls.length; j++) {
+                // if (j > i) {
                     double x1 = balls[i].x;
                     double x2 = balls[j].x;
                     double y1 = balls[i].y;
@@ -75,33 +75,57 @@ class Model {
 
                         double polarR = rectToPolarR(balls[i].vx, balls[i].vy);
                         double polarT = rectToPolarT(balls[i].vx, balls[i].vy);
-                        double tangentT = rectToPolarT(balls[i].x - balls[j].x, balls[i].y - balls[j].y);
+                        double polarR2 = rectToPolarR(balls[j].vx, balls[j].vy);
+                        double polarT2 = rectToPolarT(balls[j].vx, balls[j].vy);
+                        // double tangentT = rectToPolarT(balls[i].x - balls[j].x, balls[i].y - balls[j].y);
 
                         // polarT += Math.PI;
                         // double alfa = polarT - tangentT;
                         // polarT += 2 * alfa;
 
 
-                        double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1)) + Math.PI;
+                        double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1));
+                        // if (x1 < x2 && y1 < y2) {
+                        //   collisionAngle += Math.PI;
+                        // } else if (x1 < x2) {
+                        //   collisionAngle += Math.PI/2;
+                        // } else if (y1 < y2) {
+                        //   collisionAngle += 3*Math.PI/2;
+                        // }
+                        polarT += collisionAngle + Math.PI/2;
+                        polarT2 += collisionAngle + Math.PI/2;
 
+                        // polarT += Math.PI / 2;
+                        // polarT2 += Math.PI / 2;
 
-                        polarT += collisionAngle;
+                        // if (x1 < x2 && y1 < y2) {
 
-                        double newX = polarToRectX(polarR, polarT);
-                        double newY = polarToRectY(polarR, polarT);
+                        // }
 
+                        // polarT = collisionAngle;
+                        // polarT2 = collisionAngle + Math.PI;
+
+                        System.out.println("angle: "+collisionAngle);
+
+                        // double newX = polarToRectX(polarR, polarT);
+                        // double newY = polarToRectY(polarR, polarT);
                         System.out.println("Ball " + i);
                         System.out.println("Before\t\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
 
-                        balls[i].vx = newX;
-                        balls[i].vy = newY;
+                        // balls[i].vx = newX;
+                        // balls[i].vy = newY;
+
+                        balls[i].vx = polarToRectX(polarR, polarT);
+                        balls[i].vy = polarToRectY(polarR, polarT);
+                        balls[j].vx = polarToRectX(polarR2, polarT2);
+                        balls[j].vy = polarToRectY(polarR2, polarT2);
 
                         System.out.println("After\t\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
                         System.out.println("Collision\t" + collisionAngle);
                         System.out.println();
 
                     }
-                }
+                // }
             }
         }
 
