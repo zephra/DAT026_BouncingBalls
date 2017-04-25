@@ -99,4 +99,35 @@ class Model {
         double x, y, vx, vy, radius, mass;
         Color color;
     }
+
+    // class Polar {
+    //     double r, t;
+    //     public Polar(double r, double t) {
+    //         this.r = r;
+    //         this.t = t;
+    //     }
+    // }
+
+    // class Rect {
+    //     double x, y;
+    //     public Rect(double x, double y) {
+
+    //     }
+    // }
+
+    public static double rectToPolarR(double x, double y) {
+        return Math.sqrt(x*x + y*y);
+    }
+
+    public static double rectToPolarT(double x, double y) {
+        return Math.atan2(y, x);
+    }
+
+    public static double polarToRectX(double r, double t) {
+        return r * Math.cos(t);
+    }
+
+    public static double polarToRectY(double r, double t) {
+        return r * Math.sin(t);
+    }
 }
