@@ -66,27 +66,43 @@ class Model {
         for (int i=0; i<balls.length; i++) {
             for (int j=0; j<balls.length; j++) {
                 if (i != j) {
-                    double distance = Math.sqrt(Math.pow((balls[i].x - balls[j].x),2) + Math.pow((balls[i].y - balls[j].y),2));
+                    double x1 = balls[i].x;
+                    double x2 = balls[j].x;
+                    double y1 = balls[i].y;
+                    double y2 = balls[j].y;
+                    double distance = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
                     if (distance < balls[i].radius + balls[j].radius) {
 
                         double polarR = rectToPolarR(balls[i].vx, balls[i].vy);
                         double polarT = rectToPolarT(balls[i].vx, balls[i].vy);
                         double tangentT = rectToPolarT(balls[i].x - balls[j].x, balls[i].y - balls[j].y);
+
                         // polarT += Math.PI;
-                        double alfa = polarT - tangentT;
-                        polarT += 2 * alfa;
+                        // double alfa = polarT - tangentT;
+                        // polarT += 2 * alfa;
+
+
+                        double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1));
+                        polarT += collisionAngle;
+                        if (x1 < x2 && y1 < y2) {
+                          collisionAngle += Math.PI;
+                        } else if (x1 < x2) {
+                          collisionAngle += Math.PI/2;
+                        } else if (y1 < y2) {
+                          collisionAngle += 3*Math.PI/2;
+                        }
+
                         double newX = polarToRectX(polarR, polarT);
                         double newY = polarToRectY(polarR, polarT);
 
-                        double collisionAngle;
-
                         System.out.println("Ball " + i);
-                        System.out.println("Before\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
+                        System.out.println("Before\t\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
 
                         balls[i].vx = newX;
                         balls[i].vy = newY;
 
-                        System.out.println("After\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
+                        System.out.println("After\t\tR: " + rectToPolarR(balls[i].vx, balls[i].vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
+                        System.out.println("Collision\t" + collisionAngle);
                         System.out.println();
 
                     }
