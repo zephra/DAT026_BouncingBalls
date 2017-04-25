@@ -70,7 +70,7 @@ class Model {
             this.vx = vx;
             this.vy = vy;
             this.radius = r;
-            this.mass = r; // TODO: change to equation for volume of sphere times some constant mass
+            this.mass = 4/3 * Math.PI * Math.pow(r, 3); // Volume of a sphere
             this.color = c;
         }
 
