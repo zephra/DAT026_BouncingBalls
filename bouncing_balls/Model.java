@@ -67,8 +67,8 @@ class Model {
             for (int j=i+1; j<balls.length; j++) {
                 // if (j > i) {
                     double x1 = balls[i].x;
-                    double x2 = balls[j].x;
                     double y1 = balls[i].y;
+                    double x2 = balls[j].x;
                     double y2 = balls[j].y;
                     double distance = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
                     if (distance < balls[i].radius + balls[j].radius) {
@@ -104,12 +104,13 @@ class Model {
                 // =>  v2 (m1 + m2) = I + m1 R
                 // =>  v2 = (I + m1 R) / (m1 + m2)
 
-                        double beta = rectToPolarT(x2 - x1, y2 - y1);
+                        double beta1 = rectToPolarT(x2 - x1, y2 - y1);
+                        double beta2 = rectToPolarT(x1 - x2, y1 - y2);
 
-                        double u1 = polarToRectX(polarR, polarT - beta);
-                        double u1y = polarToRectY(polarR, polarT - beta);
-                        double u2 = polarToRectX(polarR2, polarT2 - beta);
-                        double u2y = polarToRectY(polarR2, polarT2 - beta);
+                        double u1 = polarToRectX(polarR, polarT - beta1);
+                        double u1y = polarToRectY(polarR, polarT - beta1);
+                        double u2 = polarToRectX(polarR2, polarT2 - beta2);
+                        double u2y = polarToRectY(polarR2, polarT2 - beta2);
 
                         double m1 = balls[i].mass;
                         double m2 = balls[j].mass;
