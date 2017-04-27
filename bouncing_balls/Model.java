@@ -2,6 +2,22 @@ package bouncing_balls;
 
 import java.awt.Color;
 
+/*
+
+    Fire-group: 11
+    Robin Lilius-Lundmark, 198607113613, TKITE-2
+    Andreas Carlsson, 19890909-5013, TKITE-2
+    lurobin@student.chalmers.se
+    andrc@student.chalmers.se
+
+
+    We hereby declare that we have both actively participated in solving every exercise, and all solutions are entirely our own work.
+
+    Total time of work: 8h each (16h that is)
+    Time of that visited at supervision opportunities: 6h total
+
+*/
+
 /**
  * The physics model.
  *
@@ -16,7 +32,7 @@ class Model {
 
     final double G = 9.82 * 0.01;
     final double DAMPENING = 0.98;
-    final double MASS_SIZE = 100.0;
+    final double MASS_SIZE = 0.1;
 
     double areaWidth, areaHeight;
 
@@ -28,10 +44,12 @@ class Model {
 
         // Initialize the model with a few balls
         int i = 0;
-        balls = new Ball[3];
-        balls[i++] = new Ball(width / 3, height * 0.6, 1.0, 0, 0.4, Color.RED);
-        balls[i++] = new Ball(2 * width / 3, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
-        balls[i++] = new Ball(width / 4, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        balls = new Ball[6];
+        balls[i++] = new Ball(width * 0.33, height * 0.6, 1.0, 0, 0.4, Color.RED);
+        balls[i++] = new Ball(width * 0.66, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
+        balls[i++] = new Ball(width * 0.25, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        balls[i++] = new Ball(width * 0.10, height * 0.8, -0.8, 0, 0.35, Color.PINK);
+        balls[i++] = new Ball(width * 0.90, height * 0.7, 0.9, 0, 0.25, Color.YELLOW);
     }
 
     void step(double deltaT) {
@@ -134,15 +152,15 @@ class Model {
                     // System.out.println("After\t\tR: " + rectToPolarR(b1.vx, b2.vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
                     // System.out.println();
 
-                    // -- Adjusting position when balls intersect
+                    // -- Adjusting position when balls intersect ["fullösning"]
                     //     (This is really not necessary in 99/100 bounces, but once in
-                    //     a while we get som lagg and this causes the new speed to not be
-                    //     sufficient to get the bouncing balls out of eachother. This
-                    //     could also be an effect of bad colission handling)
+                    //     a while the balls seems to get stuck in eachother. This
+                    //     could be an effect of bad colission handling?)
+                    
                     double movePart = b1.radius + b2.radius - distance;
                     if (b1.mass < b2.mass) {
-                        b1.x += polarToRectX(movePart, beta);
-                        b1.y += polarToRectY(movePart, beta);
+                        b1.x += polarToRectX(movePart, beta + pi);
+                        b1.y += polarToRectY(movePart, beta + pi);
                     } else {
                         b2.x += polarToRectX(movePart, beta);
                         b2.y += polarToRectY(movePart, beta);
