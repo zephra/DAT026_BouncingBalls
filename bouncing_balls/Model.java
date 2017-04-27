@@ -34,7 +34,7 @@ class Model {
         balls = new Ball[3];
         balls[i++] = new Ball(width / 3, height * 0.6, 1.0, 0, 0.4, Color.RED);
         balls[i++] = new Ball(2 * width / 3, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
-        // balls[i++] = new Ball(width / 4, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        balls[i++] = new Ball(width / 4, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
     }
 
     void step(double deltaT) {
@@ -49,9 +49,15 @@ class Model {
         
         // double r = rectToPolarR(1, 1);
         // double t = rectToPolarT(1, 1);
-        // double x = polarToRectX(r, t - (pi/4 - pi/2));
-        // double y = polarToRectY(r, t - (pi/4 - pi/2));
-        // System.out.println("x: "+x+", y: "+y);
+        // double x = polarToRectX(r, t - (-pi/4 - pi/2));
+        // double y = polarToRectY(r, t - (-pi/4 - pi/2));
+        // System.out.println("pos speed x: "+x+", y: "+y);
+
+        // r = rectToPolarR(-1, -1);
+        // t = rectToPolarT(-1, -1);
+        // x = polarToRectX(r, t - (3*pi/4 - pi/2));
+        // y = polarToRectY(r, t - (3*pi/4 - pi/2));
+        // System.out.println("neg speed x: "+x+", y: "+y);
 
         // double[] xCoords = new double[balls.length];
         // double[] yCoords = new double[balls.length];
@@ -128,7 +134,7 @@ class Model {
                 // =>  v2 (m1 + m2) = I + m1 R
                 // =>  v2 = (I + m1 R) / (m1 + m2)
 
-                        double beta = rectToPolarT(x2 - x1, y2 - y1) - pi/2;
+                        double beta = rectToPolarT(x2 - x1, y2 - y1);
                         // double beta1 = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1));
                         // double beta1 = rectToPolarT(x2 - x1, y2 - y1) - pi/2;
                         // double beta2 = rectToPolarT(x1 - x2, y1 - y2);
@@ -157,9 +163,9 @@ class Model {
                             double v2 = (bigI + m1 * bigR) / (m1 + m2);
 
                             polarR = rectToPolarR(v1, u1y);
-                            polarT = rectToPolarT(v1, u1y);
+                            polarT = rectToPolarT(v1, u1y) + beta;
                             polarR2 = rectToPolarR(v2, u2y);
-                            polarT2 = rectToPolarT(v2, u2y);
+                            polarT2 = rectToPolarT(v2, u2y) + beta;
                         // }
 
                         // double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1));
@@ -202,14 +208,14 @@ class Model {
                         System.out.println();
 
                         // // Adjusting position when balls intersect
-                        // double movePart = b1.radius + b2.radius - distance;
-                        // if (b1.mass < b2.mass) {
-                        //     b1.x += polarToRectX(movePart, beta2);
-                        //     b1.y += polarToRectY(movePart, beta2);
-                        // } else {
-                        //     b2.x += polarToRectX(movePart, beta1);
-                        //     b2.y += polarToRectY(movePart, beta1);
-                        // }
+                        double movePart = b1.radius + b2.radius - distance;
+                        if (b1.mass < b2.mass) {
+                            b1.x += polarToRectX(movePart, beta);
+                            b1.y += polarToRectY(movePart, beta);
+                        } else {
+                            b2.x += polarToRectX(movePart, beta);
+                            b2.y += polarToRectY(movePart, beta);
+                        }
 
                     }
                 // }
