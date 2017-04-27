@@ -44,12 +44,24 @@ class Model {
 
         // Initialize the model with a few balls
         int i = 0;
-        balls = new Ball[6];
+        balls = new Ball[8];
+
+        // Basic simulation
         balls[i++] = new Ball(width * 0.33, height * 0.6, 1.0, 0, 0.4, Color.RED);
         balls[i++] = new Ball(width * 0.66, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
         balls[i++] = new Ball(width * 0.25, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
         balls[i++] = new Ball(width * 0.10, height * 0.8, -0.8, 0, 0.35, Color.PINK);
         balls[i++] = new Ball(width * 0.90, height * 0.7, 0.9, 0, 0.25, Color.YELLOW);
+        
+        // Small balls simulation
+        // balls[i++] = new Ball(width * 0.33, height * 0.6, 1.0, 0, 0.2, Color.RED);
+        // balls[i++] = new Ball(width * 0.66, height * 0.3, -1.6, 0, 0.2, Color.GREEN);
+        // balls[i++] = new Ball(width * 0.25, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        // balls[i++] = new Ball(width * 0.10, height * 0.8, -0.8, 0, 0.1, Color.PINK);
+        // balls[i++] = new Ball(width * 0.90, height * 0.7, 0.9, 0, 0.1, Color.YELLOW);
+        // balls[i++] = new Ball(width * 0.80, height * 0.4, 0.9, 0, 0.1, Color.BLACK);
+        // balls[i++] = new Ball(width * 0.70, height * 0.5, 0.9, 0, 0.1, Color.MAGENTA);
+        // balls[i++] = new Ball(width * 0.60, height * 0.1, 0.9, 0, 0.1, Color.CYAN);
     }
 
     void step(double deltaT) {
