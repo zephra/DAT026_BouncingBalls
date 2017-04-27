@@ -103,7 +103,11 @@ class Model {
                 double y2 = b2.y;
 
                 double distance = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
-                if (distance < b1.radius + b2.radius) {
+                double futureDistance =
+                        Math.sqrt(Math.pow((x1 + b1.vx * deltaT) - (x2 + b2.vx * deltaT), 2)
+                                + Math.pow((y1 + b1.vy * deltaT) - (y2 + b2.vy * deltaT), 2));
+
+                if (distance < b1.radius + b2.radius && futureDistance < distance) {
 
                     double polarR = rectToPolarR(b1.vx, b1.vy);
                     double polarT = rectToPolarT(b1.vx, b1.vy);
@@ -152,31 +156,10 @@ class Model {
                     polarR2 = rectToPolarR(v2, u2y);
                     polarT2 = rectToPolarT(v2, u2y) + beta;
 
-                    // System.out.println("Ball " + i);
-                    // System.out.println("Before\t\tR: " + rectToPolarR(b1.vx, b2.vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
-                    // System.out.println("beta: "+beta);
-
                     b1.vx = polarToRectX(polarR, polarT);
                     b1.vy = polarToRectY(polarR, polarT);
                     b2.vx = polarToRectX(polarR2, polarT2);
                     b2.vy = polarToRectY(polarR2, polarT2);
-
-                    // System.out.println("After\t\tR: " + rectToPolarR(b1.vx, b2.vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
-                    // System.out.println();
-
-                    // -- Adjusting position when balls intersect ["fullösning"]
-                    //     (This is really not necessary in 99/100 bounces, but once in
-                    //     a while the balls seems to get stuck in eachother. This
-                    //     could be an effect of bad colission handling?)
-                    
-                    double movePart = b1.radius + b2.radius - distance;
-                    if (b1.mass < b2.mass) {
-                        b1.x += polarToRectX(movePart, beta + pi);
-                        b1.y += polarToRectY(movePart, beta + pi);
-                    } else {
-                        b2.x += polarToRectX(movePart, beta);
-                        b2.y += polarToRectY(movePart, beta);
-                    }
 
                 }
             }
