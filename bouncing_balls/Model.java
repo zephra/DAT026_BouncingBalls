@@ -114,26 +114,26 @@ class Model {
                     double polarR2 = rectToPolarR(b2.vx, b2.vy);
                     double polarT2 = rectToPolarT(b2.vx, b2.vy);
 
-                // --- Calculations:
+                    // --- Calculations from given equations:
 
-                // x = r cos(alfa)
-                // xt = r cos(alfa - beta)
-                // y = r sin(alfa)
-                // yt = r sin(alfa - beta)
+                    // x = r cos(alfa)
+                    // xt = r cos(alfa - beta)
+                    // y = r sin(alfa)
+                    // yt = r sin(alfa - beta)
 
-                // v1 = v2 - R
-                // v2 = v1 + R
+                    // v1 = v2 - R
+                    // v2 = v1 + R
 
-                //     m1 v1 + m2 (v1 + R) = I
-                // =>  m1 v1 + m2 v1 + m2 R = I
-                // =>  v1 (m1 + m2) = I - m2 R
-                // =>  v1 = (I - m2 R) / (m1 + m2)
+                    //     m1 v1 + m2 (v1 + R) = I
+                    // =>  m1 v1 + m2 v1 + m2 R = I
+                    // =>  v1 (m1 + m2) = I - m2 R
+                    // =>  v1 = (I - m2 R) / (m1 + m2)
 
 
-                //     m1 (v2 - R) + m2 v2 = I
-                // =>  m1 v2 - m1 R + m2 v2 = I
-                // =>  v2 (m1 + m2) = I + m1 R
-                // =>  v2 = (I + m1 R) / (m1 + m2)
+                    //     m1 (v2 - R) + m2 v2 = I
+                    // =>  m1 v2 - m1 R + m2 v2 = I
+                    // =>  v2 (m1 + m2) = I + m1 R
+                    // =>  v2 = (I + m1 R) / (m1 + m2)
 
                     double beta = rectToPolarT(x2 - x1, y2 - y1);
 

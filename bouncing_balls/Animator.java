@@ -69,7 +69,6 @@ public final class Animator extends JPanel implements ActionListener {
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// draw balls
-		// g2.setColor(Color.RED);
 		for (Ball b : model.balls) {
             if (b == null) break;
             g2.setColor(b.color);
@@ -79,55 +78,8 @@ public final class Animator extends JPanel implements ActionListener {
 			Ellipse2D.Double e = new Ellipse2D.Double(x * pixelsPerMeter, this.getHeight() - (y * pixelsPerMeter),
 					b.radius * 2 * pixelsPerMeter, b.radius * 2 * pixelsPerMeter);
 			g2.fill(e);
-
-			// drawCollisionAngle(model.balls, g);
-			// g.drawLine(0,0, collisionX, collisionY);
-			// System.out.println(collisionX + " " + collisionY);
 		}
 	}
-
-	// private void drawCollisionAngle(Ball[] balls, Graphics g) {
-	// 	g.setColor(Color.BLACK);
-	//
-	// 	for (int i=0; i<balls.length; i++) {
-	// 			for (int j=0; j<balls.length; j++) {
-	// 					if (i != j) {
-	// 							double x1 = balls[i].x;
-	// 							double x2 = balls[j].x;
-	// 							double y1 = balls[i].y;
-	// 							double y2 = balls[j].y;
-	// 							double distance = Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1-y2,2));
-	// 							if (distance < balls[i].radius + balls[j].radius) {
-	//
-	// 									double polarR = rectToPolarR(balls[i].vx, balls[i].vy);
-	// 									double polarT = rectToPolarT(balls[i].vx, balls[i].vy);
-	// 									double tangentT = rectToPolarT(balls[i].x - balls[j].x, balls[i].y - balls[j].y);
-	//
-	// 									double collisionAngle = Math.atan2(Math.abs(y2-y1), Math.abs(x2-x1)) + Math.PI;
-	//
-	// 									collisionX = (int)(balls[i].x * pixelsPerMeter);
-	// 									collisionY = (int)(balls[i].y * pixelsPerMeter);
-	// 							}
-	// 					 }
-	// 			}
-	// 	 }
-	// }
-	//
-	// public static double rectToPolarR(double x, double y) {
-	// 		return Math.sqrt(x*x + y*y);
-	// }
-	//
-	// public static double rectToPolarT(double x, double y) {
-	// 		return Math.atan2(y, x);
-	// }
-	//
-	// public static double polarToRectX(double r, double t) {
-	// 		return r * Math.cos(t);
-	// }
-	//
-	// public static double polarToRectY(double r, double t) {
-	// 		return r * Math.sin(t);
-	// }
 
     @Override
     public void actionPerformed(ActionEvent e) {
