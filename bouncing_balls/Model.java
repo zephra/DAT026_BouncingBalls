@@ -134,7 +134,11 @@ class Model {
                     // System.out.println("After\t\tR: " + rectToPolarR(b1.vx, b2.vy) + "\tT: " + rectToPolarT(balls[i].vx, balls[i].vy));
                     // System.out.println();
 
-                    // // Adjusting position when balls intersect
+                    // -- Adjusting position when balls intersect
+                    //     (This is really not necessary in 99/100 bounces, but once in
+                    //     a while we get som lagg and this causes the new speed to not be
+                    //     sufficient to get the bouncing balls out of eachother. This
+                    //     could also be an effect of bad colission handling)
                     double movePart = b1.radius + b2.radius - distance;
                     if (b1.mass < b2.mass) {
                         b1.x += polarToRectX(movePart, beta);
