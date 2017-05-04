@@ -30,9 +30,10 @@ import java.awt.Color;
  */
 class Model {
 
-    final double G = 9.82 * 0.01;
+    final double G = 9.82;
     final double DAMPENING = 0.98;
     final double MASS_SIZE = 0.1;
+    final double MASS_CONSTANT = 3;
 
     double areaWidth, areaHeight;
 
@@ -49,19 +50,9 @@ class Model {
         // Basic simulation
         balls[i++] = new Ball(width * 0.33, height * 0.6, 1.0, 0, 0.4, Color.RED);
         balls[i++] = new Ball(width * 0.66, height * 0.3, -1.6, 0, 0.3, Color.GREEN);
-        balls[i++] = new Ball(width * 0.25, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
-        balls[i++] = new Ball(width * 0.10, height * 0.8, -0.8, 0, 0.35, Color.PINK);
+        balls[i++] = new Ball(width * 0.45, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
+        balls[i++] = new Ball(width * 0.20, height * 0.8, -0.8, 0, 0.35, Color.PINK);
         balls[i++] = new Ball(width * 0.90, height * 0.7, 0.9, 0, 0.25, Color.YELLOW);
-        
-        // Small balls simulation
-        // balls[i++] = new Ball(width * 0.33, height * 0.6, 1.0, 0, 0.2, Color.RED);
-        // balls[i++] = new Ball(width * 0.66, height * 0.3, -1.6, 0, 0.2, Color.GREEN);
-        // balls[i++] = new Ball(width * 0.25, height * 0.9, 0.8, 0, 0.2, Color.BLUE);
-        // balls[i++] = new Ball(width * 0.10, height * 0.8, -0.8, 0, 0.1, Color.PINK);
-        // balls[i++] = new Ball(width * 0.90, height * 0.7, 0.9, 0, 0.1, Color.YELLOW);
-        // balls[i++] = new Ball(width * 0.80, height * 0.4, 0.9, 0, 0.1, Color.BLACK);
-        // balls[i++] = new Ball(width * 0.70, height * 0.5, 0.9, 0, 0.1, Color.MAGENTA);
-        // balls[i++] = new Ball(width * 0.60, height * 0.1, 0.9, 0, 0.1, Color.CYAN);
     }
 
     void step(double deltaT) {
@@ -73,7 +64,7 @@ class Model {
             if (b == null) break;
 
             // gravitation
-            b.vy += -G;
+            b.vy += (-G * deltaT);
 
             // detect collision with the border
             if (b.x < b.radius && b.vx < 0 || b.x > areaWidth - b.radius && b.vx > 0) {
@@ -177,7 +168,7 @@ class Model {
             this.vx = vx;
             this.vy = vy;
             this.radius = r;
-            this.mass = 4/3 * Math.PI * Math.pow(r, 3) * MASS_SIZE; // Volume of a sphere * mass-constant
+            this.mass = 4/3 * Math.PI * Math.pow(r, 3) * MASS_SIZE + MASS_CONSTANT; // Volume of a sphere * mass-constant
             this.color = c;
         }
 
